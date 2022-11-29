@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+
+      <title></title>
+  </head>
+  <body>
+      <header>
+      </header>
+      <nav>
+          <a href="/">Home</a>
+          <a href="game">Games</a>
+          <a href="https://www.esrb.org/">Ratings</a>
+          <a href="customer">Sign Up</a>
+          <a>Sign In</a> 
+          <a href="/order">Cart</a>
+        </nav>
+    <main>
+    <h1><%= title %></h1>
+       <% if (action="list") { %>
+    <form>
+      <fieldset >
+      <legend>Search</legend>
+      <label>Genre:</label>
+      <select name="genre" id="genre">
+        <option></option>
+        <option value="adventure">Adventure</option>
+        <option value="action">Action</option>
+        <option value="platform">Platform</option>
+        <option value="sports">Sports</option>
+    </select>
+
+      <label>Rating:</label>
+      <select name="rating" id="rating">
+        <option></option>
+        <option value="everyone">Everyone</option>
+        <option value="everyone10">Everyone 10+</option>
+        <option value="teen">Teen</option>
+      </select>
+
+      <label>Name:</label>
+      <input type=text id="namesearch">
+
+      <button class="inline" type="button" onclick="test()">Go</button>
+    </fieldset>
+    </form>
+         
+    <table>
+      <tr>
+        <th>Game Name</th>
+        <th>Game Description</th>
+        <th>View Product</th>
+      </tr> 
+        <%  <!-- Start Embedded JS -->
+         if(gameData.length > 0)  <!-- start if -->
+           {
+           gameData.forEach((data) => { <!--Start callback-->
+          %> <!-- end JS Code -->
+        <tr><td><%=data.game_name%></td> 
+        <td><%=data.game_name%></td>
+        <td><a href="/game/<%=data.game_id%>">View</a></td>
+        <% });   <!-- Start JS code and End callback -->
+        }  <!-- End if clause -->
+          else { %>  <!-- Start else clause and close JS code -->
+              <tr>No Data Found</tr>
+           <% } %>  <!-- end JS else code -->
+        </tr>
+       </table>
+
+      <% } else { %>
+
+    <form method="post" action="/game/:id">
+     <div>
+        <label for="game_id">Game ID</label>
+        <input type="number" name="game_id" id="game_id">
+    </div>
+    <div>
+        <label for="game_name">Game Name</label>
+        <input type="text" name="game_name" maxlength="50" id="game_name">
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea type="textarea" name="description" maxlength="500" id="description"></textarea>
+    </div>
+    <div>
+        <label for="genre">Genre</label>
+        <select name="genre" id="genre">
+            <option value="1" selected="true" id="genre-0">Action</option>
+            <option value="2" selected="true" id="genre-1">Adventure</option>
+            <option value="6" selected="true" id="genre-2">Puzzle</option>
+            <option value="7" id="genre-3">Racing </option>
+        </select>
+    </div>
+    <div>
+        <label for="rating">Rating</label>
+        <select name="rating" id="rating">
+            <option value="1" selected="true" id="rating-0">E-Everyone</option>
+            <option value="2" id="rating-1">E 10+</option>
+            <option value="3" id="rating-2">T- Teen</option>
+        </select>
+    </div>
+    <div>
+        <label for="price"">Price</label>
+        <input type="number" name="price" id="price">
+    </div>
+      
+    </form>
+     <% } %>            
+    </main>
+  </body>
+</html>
